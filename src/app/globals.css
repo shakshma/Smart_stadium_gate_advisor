@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050505;
+  --foreground: #f0f0f0;
+  --primary: #00ff88;
+  --primary-glow: rgba(0, 255, 136, 0.3);
+  --secondary: #00d4ff;
+  --secondary-glow: rgba(0, 212, 255, 0.3);
+  --accent: #ff0077;
+  --accent-glow: rgba(255, 0, 119, 0.3);
+  --card-bg: rgba(15, 15, 15, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Outfit', 'Inter', sans-serif;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.03) 0%, transparent 40%);
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-[var(--card-bg)] backdrop-blur-2xl border border-[var(--glass-border)] rounded-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.8)];
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-card:hover {
+    @apply border-white/20 shadow-[0_0_40px_rgba(0,255,136,0.05)];
+    transform: translateY(-4px);
+  }
+  
+  .neon-glow {
+    box-shadow: 0 0 25px var(--primary-glow);
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-[var(--primary)] via-[var(--secondary)] to-[var(--accent)];
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #252525;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
